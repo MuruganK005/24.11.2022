@@ -19,6 +19,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceRepo resourceRepo;
 
+
     @Override
     public ResponseEntity<String> createResource(ResourceDTO resource) {
         ModelMapper mapper = new ModelMapper();
@@ -93,6 +94,16 @@ public class ResourceServiceImpl implements ResourceService {
             }
         }
         return new ResponseEntity<>(resourceList.get(0).getResourceNo(),HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Object> createNewResource(ResourceDTO resource) {
+        Optional<Resource> resource2 = resourceRepo.findById(resource.getResourceId());
+
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setAmbiguityIgnored(true);
+        Resource resource1 = mapper.map(resource, Resource.class);
+        return new ResponseEntity<>(resourceRepo.save(resource1),HttpStatus.CREATED);
     }
 
 }

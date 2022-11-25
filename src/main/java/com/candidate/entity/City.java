@@ -24,16 +24,8 @@ public class City {
     @Column(name = "city_code")
     private String cityCode;
 
-    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "state_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
-    @JsonProperty("state_id")
-    private State state;*/
-
     @ManyToOne
-    @JoinColumn(name = "city_city_id")
+    @JoinColumn(name = "state_state_id")
     private State state;
 
 }

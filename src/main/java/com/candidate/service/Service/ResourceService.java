@@ -22,5 +22,7 @@ public interface ResourceService {
 
     ResponseEntity<String> getLastResourceNo(String resourceType);
 
+    ResponseEntity<Object> createNewResource(ResourceDTO resource);
+
     /* Optional<Resource> getLastResourceNo(String resourceNo);*/
 }

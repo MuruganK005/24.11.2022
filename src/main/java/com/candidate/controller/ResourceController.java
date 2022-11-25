@@ -51,4 +51,9 @@ public class ResourceController {
     public ResponseEntity<String> getLastResourceNo(@RequestParam String resourceType) {
         return service.getLastResourceNo(resourceType);
     }
+
+    @PostMapping("/create_new_resource")
+    public ResponseEntity<Object> createNewResource(@RequestBody ResourceDTO resource) {
+        return service.createNewResource(resource);
+    }
 }

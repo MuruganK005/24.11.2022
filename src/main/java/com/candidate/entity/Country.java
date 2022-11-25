@@ -23,4 +23,8 @@ public class Country {
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<State> states;
 
+
+
+
+
 }

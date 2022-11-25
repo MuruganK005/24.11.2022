@@ -29,15 +29,6 @@ public class State {
     private String stateName;
     @Column(name = "state_code")
     private String stateCode;
-
-/*    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "country_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
-    @JsonProperty("country_id")
-    private Country country;*/
-
     @ManyToOne
     @JoinColumn(name = "country_country_id")
     private Country country;
