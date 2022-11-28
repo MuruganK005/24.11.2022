@@ -19,8 +19,8 @@ public class Country {
     private String countryName;
     @Column(name = "country_code")
     private String countryCode;
-    //create one to many for states
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id")
     private List<State> states;
 
 

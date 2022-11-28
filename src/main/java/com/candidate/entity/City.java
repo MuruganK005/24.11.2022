@@ -24,8 +24,4 @@ public class City {
     @Column(name = "city_code")
     private String cityCode;
 
-    @ManyToOne
-    @JoinColumn(name = "state_state_id")
-    private State state;
-
 }

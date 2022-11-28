@@ -2,6 +2,9 @@ package com.candidate.service.Impl;
 
 import com.candidate.dto.ResourceDTO;
 import com.candidate.entity.Resource;
+import com.candidate.entity.logEntity.AddressLog;
+import com.candidate.entity.logEntity.ResourceLog;
+import com.candidate.repo.ResourceLogRepo;
 import com.candidate.repo.ResourceRepo;
 import com.candidate.service.Service.ResourceService;
 import org.modelmapper.ModelMapper;
@@ -19,6 +22,10 @@ public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceRepo resourceRepo;
 
+    @Autowired
+    private ResourceLogRepo resourceLogRepo;
+
+
 
     @Override
     public ResponseEntity<String> createResource(ResourceDTO resource) {
@@ -26,17 +33,27 @@ public class ResourceServiceImpl implements ResourceService {
         mapper.getConfiguration().setAmbiguityIgnored(true);
         Resource resource1 = mapper.map(resource, Resource.class);
         List<Resource> resourceOptional = resourceRepo.findByResourceType(resource1.getResourceType());
-            String resourceIdNextSequence = String.valueOf(resourceOptional.size() + 1);
-            if (null != resourceIdNextSequence && resourceIdNextSequence.length() < 5) {
-                int uuidNextSequence = resourceIdNextSequence.length();
-                for (int i = 0; i <=5 - uuidNextSequence; i++) {
-                    resourceIdNextSequence = "0".concat(resourceIdNextSequence);
-                }
-                resource1.setResourceNo(resource1.getResourceType()+resourceIdNextSequence);
+        String resourceIdNextSequence = String.valueOf(resourceOptional.size() + 1);
+        if (null != resourceIdNextSequence && resourceIdNextSequence.length() < 5) {
+            int uuidNextSequence = resourceIdNextSequence.length();
+            for (int i = 0; i <=5 - uuidNextSequence; i++) {
+                resourceIdNextSequence = "0".concat(resourceIdNextSequence);
             }
-            resourceRepo.save(resource1);
-            return new ResponseEntity<>("resource has created", HttpStatus.OK);
+            resource1.setResourceNo(resource1.getResourceType()+resourceIdNextSequence);
         }
+        resourceRepo.save(resource1);
+        ResourceLog log=new ResourceLog();
+        log.setResourceLogId(resource1.getResourceId());
+        if (resource1.getResourceId() != null){
+            log.setFirstName(resource1.getFirstName());
+            log.setLastName(resource1.getLastName());
+            log.setResourceNo(resource1.getResourceNo());
+            log.setStatus(resource1.getStatus());
+            log.setResourceType(resource1.getResourceType());
+        }
+        resourceLogRepo.save(log);
+        return new ResponseEntity<>("resource has created", HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<String> updateResource(ResourceDTO resource) {

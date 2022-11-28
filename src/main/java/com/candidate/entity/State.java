@@ -29,11 +29,9 @@ public class State {
     private String stateName;
     @Column(name = "state_code")
     private String stateCode;
-    @ManyToOne
-    @JoinColumn(name = "country_country_id")
-    private Country country;
 
-    @OneToMany(mappedBy = "state", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "state_id")
     private List<City> city;
 
 }

@@ -1,6 +1,14 @@
-package com.candidate.entity;
+package com.candidate.entity.logEntity;
 
+import com.candidate.entity.Company;
+import com.candidate.entity.ContactDetails;
+import com.candidate.entity.Department;
+import com.candidate.entity.Designation;
+import com.candidate.entity.logEntity.AddressLog;
+import com.candidate.entity.logEntity.ContactDetailsLog;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,13 +18,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "resource")
-public class Resource {
-
+@Table(name = "resourceLog")
+@AllArgsConstructor
+@NoArgsConstructor
+public class ResourceLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "resource_id", nullable = false)
-    private Long resourceId;
+    @Column(name = "resource_log_id", nullable = false)
+    private Long resourceLogId;
 
     @Column(name="resource_no")
     private String resourceNo;
@@ -65,11 +74,10 @@ public class Resource {
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id")
-    private ContactDetails contactDetails;
+    private ContactDetailsLog contactDetailsLog;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-
 
 }

@@ -1,4 +1,4 @@
-package com.candidate.entity;
+package com.candidate.entity.logEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,13 +10,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "addressLog")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "address")
-public class Address {
-
+public class AddressLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "address_log_id", nullable = false)
+    private Long addressLogId;
+
     @Column(name = "address_id", nullable = false)
     private Long addressId;
     @Column(name = "door_no")
@@ -33,6 +35,5 @@ public class Address {
     private String zipCode;
     @Column(name = "country")
     private String country;
-
 
 }
