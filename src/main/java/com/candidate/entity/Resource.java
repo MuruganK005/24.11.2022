@@ -1,7 +1,9 @@
 package com.candidate.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,8 +35,10 @@ public class Resource {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "dob")
-    private Date dob;
+   /* @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    @Column(name = "dob", nullable = false)
+    private Date dob;*/
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "resource_id")
@@ -50,8 +54,10 @@ public class Resource {
     @Column(name = "pan_number",length = 15)
     private String panNumber;
 
+    /*@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "MM/dd/yyyy")
     @Column(name = "date_of_joining")
-    private Date doj;
+    private Date doj;*/
 
     @Column(name = "reporting_manager")
     private String reportingManger;

@@ -24,8 +24,11 @@ import java.util.List;
 public class ResourceLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "resource_log_id", nullable = false)
+    @Column(name = "resource_log_id")
     private Long resourceLogId;
+
+    @Column(name = "resource_id")
+    private Long resourceId;
 
     @Column(name="resource_no")
     private String resourceNo;
@@ -42,15 +45,17 @@ public class ResourceLog {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "dob")
-    private Date dob;
+  /*  @Column(name = "dob")
+    private Date dob;*/
+
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "resource_id")
+    @JoinColumn(name = "department_department_id")
     private Department department;
 
+
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "resource_id")
+    @JoinColumn(name = "designation_designation_id")
     private Designation designation;
 
     @Column(name = "aadhaar_number",length = 12)
@@ -59,8 +64,8 @@ public class ResourceLog {
     @Column(name = "pan_number",length = 15)
     private String panNumber;
 
-    @Column(name = "date_of_joining")
-    private Date doj;
+  /*  @Column(name = "date_of_joining")
+    private Date doj;*/
 
     @Column(name = "reporting_manager")
     private String reportingManger;

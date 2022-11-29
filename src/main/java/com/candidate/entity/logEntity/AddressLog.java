@@ -16,10 +16,10 @@ import javax.persistence.*;
 public class AddressLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "address_log_id", nullable = false)
+    @Column(name = "address_log_id")
     private Long addressLogId;
 
-    @Column(name = "address_id", nullable = false)
+    @Column(name = "address_id")
     private Long addressId;
     @Column(name = "door_no")
     private String doorNo;

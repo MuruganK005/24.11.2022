@@ -3,6 +3,7 @@ package com.candidate.service.Impl;
 import com.candidate.dto.ResourceDTO;
 import com.candidate.entity.Resource;
 import com.candidate.entity.logEntity.AddressLog;
+import com.candidate.entity.logEntity.ContactDetailsLog;
 import com.candidate.entity.logEntity.ResourceLog;
 import com.candidate.repo.ResourceLogRepo;
 import com.candidate.repo.ResourceRepo;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,16 +44,39 @@ public class ResourceServiceImpl implements ResourceService {
             resource1.setResourceNo(resource1.getResourceType()+resourceIdNextSequence);
         }
         resourceRepo.save(resource1);
-        ResourceLog log=new ResourceLog();
-        log.setResourceLogId(resource1.getResourceId());
         if (resource1.getResourceId() != null){
+            ResourceLog log=new ResourceLog();
+            log.setResourceLogId(resource1.getResourceId());
             log.setFirstName(resource1.getFirstName());
+            log.setMiddleName(resource1.getMiddleName());
             log.setLastName(resource1.getLastName());
             log.setResourceNo(resource1.getResourceNo());
             log.setStatus(resource1.getStatus());
-            log.setResourceType(resource1.getResourceType());
+            log.setGender(resource1.getGender());
+        /*    log.setDob(resource1.getDob());
+            log.setDoj(resource1.getDoj());*/
+            log.setDepartment(resource1.getDepartment());
+            log.setDesignation(resource1.getDesignation());
+            log.setAadhaarNumber(resource1.getAadhaarNumber());
+            log.setPanNumber(resource1.getPanNumber());
+            log.setReportingManger(resource1.getReportingManger());
+            ContactDetailsLog contactDetailsLog=new ContactDetailsLog();
+            contactDetailsLog.setContactDetailsLogId(resource1.getContactDetails().getContactId());
+            contactDetailsLog.setPrimaryEmail(resource1.getContactDetails().getPrimaryEmail());
+            contactDetailsLog.setSecondaryEmail(resource1.getContactDetails().getSecondaryEmail());
+            contactDetailsLog.setPhoneNumber(resource1.getContactDetails().getPhoneNumber());
+            contactDetailsLog.setAlternatePhoneNumber(resource1.getContactDetails().getAlternatePhoneNumber());
+            AddressLog addressLogs=new AddressLog();
+            addressLogs.setAddressLogId(resource1.getContactDetails().getAddress().get(0).getAddressId());
+            addressLogs.setDoorNo(resource1.getContactDetails().getAddress().get(0).getDoorNo());
+            addressLogs.setStreet(resource1.getContactDetails().getAddress().get(0).getStreet());
+            addressLogs.setLocality(resource1.getContactDetails().getAddress().get(0).getLocality());
+            addressLogs.setCity(resource1.getContactDetails().getAddress().get(0).getCity());
+            addressLogs.setState(resource1.getContactDetails().getAddress().get(0).getState());
+            addressLogs.setZipCode(resource1.getContactDetails().getAddress().get(0).getZipCode());
+            addressLogs.setCountry(resource1.getContactDetails().getAddress().get(0).getCountry());
+            resourceLogRepo.save(log);
         }
-        resourceLogRepo.save(log);
         return new ResponseEntity<>("resource has created", HttpStatus.OK);
     }
 
