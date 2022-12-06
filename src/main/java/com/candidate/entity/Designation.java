@@ -19,8 +19,8 @@ public class Designation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "designation_id", nullable = false)
     private Long designationId;
-    @Column(name = "department_name", nullable = false)
-    private String department_name;
+    @Column(name = "designation_name")
+    private String designationName;
     @Column(name = "description")
     private String description;
 

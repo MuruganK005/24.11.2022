@@ -79,7 +79,7 @@ public class ResourceLog {
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id")
-    private ContactDetailsLog contactDetailsLog;
+    private ContactDetails contactDetails;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")

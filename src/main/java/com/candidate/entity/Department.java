@@ -15,7 +15,7 @@ public class Department {
     @Column(name = "department_id", nullable = false)
     private Long departmentId;
     @Column(name = "department_name", nullable = false)
-    private String department_name;
+    private String departmentName;
     @Column(name = "description")
     private String description;
 }

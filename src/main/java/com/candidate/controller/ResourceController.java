@@ -2,7 +2,10 @@ package com.candidate.controller;
 
 import com.candidate.dto.ResourceDTO;
 import com.candidate.entity.Resource;
+import com.candidate.entity.ResourceType;
+import com.candidate.exception.CandidateException;
 import com.candidate.service.Impl.ResourceServiceImpl;
+import com.candidate.service.Service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +18,10 @@ import java.util.Optional;
 public class ResourceController {
 
     @Autowired
-    private ResourceServiceImpl service;
+    private ResourceService service;
 
     @PostMapping("/create_resource")
-    public ResponseEntity<String> createResource(@RequestBody ResourceDTO resource) {
+    public ResponseEntity<String> createResource(@RequestBody ResourceDTO resource) throws CandidateException {
         return service.createResource(resource);
     }
 
@@ -48,12 +51,13 @@ public class ResourceController {
     }
 
     @GetMapping("/get_last_resource_no")
-    public ResponseEntity<String> getLastResourceNo(@RequestParam String resourceType) {
-        return service.getLastResourceNo(resourceType);
+    public String getLastResourceNo() {
+        return service.getLastResourceNo();
     }
 
     @PostMapping("/create_new_resource")
     public ResponseEntity<Object> createNewResource(@RequestBody ResourceDTO resource) {
         return service.createNewResource(resource);
     }
+
 }
