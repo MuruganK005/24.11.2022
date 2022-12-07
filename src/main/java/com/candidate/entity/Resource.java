@@ -51,6 +51,9 @@ public class Resource {
     @Column(name = "pan_number",length = 15)
     private String panNumber;
 
+    @Column(name = "profile_picture_path")
+    private String profilePicturePath;
+
     @Column(name = "reporting_manager")
     private String reportingManger;
 

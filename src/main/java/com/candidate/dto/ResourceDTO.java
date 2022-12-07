@@ -22,6 +22,7 @@ public class ResourceDTO {
     private String reportingManger;
     private Boolean status=false;
     private ResourceType resourceType;
+    private String profilePicturePath;
     private ContactDetails contactDetails;
     private Company company;
 }

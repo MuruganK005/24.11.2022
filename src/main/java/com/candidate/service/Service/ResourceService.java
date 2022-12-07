@@ -1,18 +1,20 @@
 package com.candidate.service.Service;
 
 import com.candidate.dto.ResourceDTO;
+import com.candidate.dto.ResponseDTO;
 import com.candidate.entity.Resource;
-import com.candidate.entity.ResourceType;
 import com.candidate.exception.CandidateException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface ResourceService {
-    ResponseEntity<String> createResource(ResourceDTO resource) throws CandidateException;
+    ResponseEntity<ResponseDTO> createResource(String resource, MultipartFile multipartFile) throws CandidateException, IOException;
 
-    ResponseEntity<String> updateResource(ResourceDTO resource);
+    ResponseEntity<ResponseDTO> updateResource(String resource, MultipartFile multipartFile) throws CandidateException, IOException;
 
     ResponseEntity<String> deleteResource(Long id);
 

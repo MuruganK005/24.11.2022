@@ -1,6 +1,7 @@
 package com.candidate.controller;
 
 import com.candidate.dto.ResourceDTO;
+import com.candidate.dto.ResponseDTO;
 import com.candidate.entity.Resource;
 import com.candidate.entity.ResourceType;
 import com.candidate.exception.CandidateException;
@@ -9,7 +10,9 @@ import com.candidate.service.Service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +24,13 @@ public class ResourceController {
     private ResourceService service;
 
     @PostMapping("/create_resource")
-    public ResponseEntity<String> createResource(@RequestBody ResourceDTO resource) throws CandidateException {
-        return service.createResource(resource);
+    public ResponseEntity<ResponseDTO> createResource(@RequestParam String resource, @RequestParam MultipartFile multipartFile) throws CandidateException, IOException {
+        return service.createResource(resource,multipartFile);
     }
 
     @PutMapping("/update_resource")
-    public ResponseEntity<String> updateResource(@RequestBody ResourceDTO resource) {
-        return service.updateResource(resource);
+    public ResponseEntity<ResponseDTO> updateResource(@RequestParam String resource, @RequestParam MultipartFile multipartFile) throws CandidateException, IOException {
+        return service.updateResource(resource,multipartFile);
     }
 
     @DeleteMapping("/delete_resource/{id}")
