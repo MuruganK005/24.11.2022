@@ -1,14 +1,20 @@
 package com.candidate.dto;
 
 import com.candidate.entity.*;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
-public class ResourceDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
+public class ResourceDTO implements Serializable {
     private Long resourceId;
     private String resourceNo;
     private String firstName;
@@ -19,10 +25,11 @@ public class ResourceDTO {
     private Designation designation;
     private Long aadhaarNumber;
     private String panNumber;
+    private String profilePicturePath;
     private String reportingManger;
     private Boolean status=false;
     private ResourceType resourceType;
-    private String profilePicturePath;
     private ContactDetails contactDetails;
     private Company company;
+    private List<Role> role;
 }

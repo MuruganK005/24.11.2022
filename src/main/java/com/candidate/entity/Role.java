@@ -17,11 +17,13 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id")
     private Long roleId;
-    @Column(name = "role_name", nullable = false)
+    @Column(name = "role_name")
     private String roleName;
     @Column(name="description")
     private String description;
+    @Column(name = "role_no")
+    private String roleNo;
 
 }

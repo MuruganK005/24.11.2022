@@ -16,12 +16,14 @@ public class ResourceType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "resource_id")
-    private Long resourceId;
+    @Column(name = "resource_type_id")
+    private Long resourceTypeId;
     @Column(name = "resource_type")
     private String resourceType;
     @Column(name = "prefix")
     private String prefix;
+    @Column(name = "resource_type_no")
+    private String resourceTypeNo;
 
 
 }

@@ -1,18 +1,11 @@
 package com.candidate.entity.logEntity;
 
-import com.candidate.entity.Company;
-import com.candidate.entity.ContactDetails;
-import com.candidate.entity.Department;
-import com.candidate.entity.Designation;
-import com.candidate.entity.logEntity.AddressLog;
-import com.candidate.entity.logEntity.ContactDetailsLog;
+import com.candidate.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -45,14 +38,9 @@ public class ResourceLog {
     @Column(name = "gender")
     private String gender;
 
-  /*  @Column(name = "dob")
-    private Date dob;*/
-
-
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "department_department_id")
     private Department department;
-
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "designation_designation_id")
@@ -64,25 +52,34 @@ public class ResourceLog {
     @Column(name = "pan_number",length = 15)
     private String panNumber;
 
-  /*  @Column(name = "date_of_joining")
-    private Date doj;*/
-
     @Column(name = "reporting_manager")
     private String reportingManger;
 
     @Column(name="status")
     private Boolean status=false;
 
-    @Column(name="resource_type")
-    private String resourceType;
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "resource_type_resource_id")
+    private ResourceType resourceType;
+
+    @Column(name = "profile_picture_path")
+    private String profilePicturePath;
 
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "contact_id")
-    private ContactDetails contactDetails;
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_details_contact_details_log_id")
+    private ContactDetailsLog contactDetails;
+
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "resource_role_log_ids",
+            joinColumns = {@JoinColumn(name = "resource_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private List<Role> role;
 
 }

@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ResourceService {
-    ResponseEntity<ResponseDTO> createResource(String resource, MultipartFile multipartFile) throws CandidateException, IOException;
+    ResponseEntity<ResponseDTO> createResource(ResourceDTO resourceDTO, MultipartFile multipartFile) throws CandidateException, IOException;
 
-    ResponseEntity<ResponseDTO> updateResource(String resource, MultipartFile multipartFile) throws CandidateException, IOException;
+    ResponseEntity<ResponseDTO> updateResource(ResourceDTO resource, MultipartFile multipartFile) throws CandidateException, IOException;
 
     ResponseEntity<String> deleteResource(Long id);
 
@@ -27,4 +27,13 @@ public interface ResourceService {
 
     ResponseEntity<Object> createNewResource(ResourceDTO resource);
 
+    String getLastDepartmentNo();
+
+    String getLastDesignationNo();
+
+    String getLastResourceTypeNo();
+
+    String getLastCompanyNo();
+
+    String getLastRoleNo();
 }

@@ -1,6 +1,5 @@
 package com.candidate.repo;
 
-import com.candidate.dto.ResourceDTO;
 import com.candidate.entity.Resource;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +16,5 @@ public interface ResourceRepo extends JpaRepository<Resource,Long> {
 
     Optional<Resource> findByAadhaarNumber(Long aadhaarNumber);
 
+    Optional<Resource> findByResourceId(Long resourceId);
 }

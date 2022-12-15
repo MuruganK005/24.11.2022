@@ -1,25 +1,23 @@
 package com.candidate.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.springframework.format.annotation.DateTimeFormat;
-
+import lombok.*;
 import javax.persistence.*;
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "resource")
-public class Resource {
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
+public class Resource implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "resource_id", nullable = false)
+    @Column(name = "resource_id")
     private Long resourceId;
 
     @Column(name="resource_no")
@@ -38,11 +36,11 @@ public class Resource {
     private String gender;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_department_id")
+    @JoinColumn(name = "department_no",referencedColumnName = "department_no")
     private Department department;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "designation_designation_id")
+    @JoinColumn(name = "designation_no",referencedColumnName = "designation_no")
     private Designation designation;
 
     @Column(name = "aadhaar_number",length = 12)
@@ -61,7 +59,7 @@ public class Resource {
     private Boolean status=false;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "resource_type_resource_id")
+    @JoinColumn(name = "resource_type_no",referencedColumnName = "resource_type_no")
     private ResourceType resourceType;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -69,8 +67,13 @@ public class Resource {
     private ContactDetails contactDetails;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_no",referencedColumnName = "company_no")
     private Company company;
 
-
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "resource_role_nos",
+            joinColumns = {@JoinColumn(name = "resource_no",referencedColumnName = "resource_no")},
+            inverseJoinColumns = {@JoinColumn(name = "role_no",referencedColumnName = "role_no")}
+    )
+    private List<Role> role;
 }

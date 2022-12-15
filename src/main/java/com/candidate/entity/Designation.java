@@ -17,11 +17,13 @@ public class Designation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "designation_id", nullable = false)
+    @Column(name = "designation_id")
     private Long designationId;
     @Column(name = "designation_name")
     private String designationName;
     @Column(name = "description")
     private String description;
+    @Column(name = "designation_no")
+    private String designationNo;
 
 }

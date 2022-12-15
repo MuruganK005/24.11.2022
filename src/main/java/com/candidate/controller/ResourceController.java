@@ -24,12 +24,12 @@ public class ResourceController {
     private ResourceService service;
 
     @PostMapping("/create_resource")
-    public ResponseEntity<ResponseDTO> createResource(@RequestParam String resource, @RequestParam MultipartFile multipartFile) throws CandidateException, IOException {
-        return service.createResource(resource,multipartFile);
+    public ResponseEntity<ResponseDTO> createResource(@RequestPart ResourceDTO resourceDTO, @RequestPart MultipartFile multipartFile) throws CandidateException, IOException {
+        return service.createResource(resourceDTO,multipartFile);
     }
 
     @PutMapping("/update_resource")
-    public ResponseEntity<ResponseDTO> updateResource(@RequestParam String resource, @RequestParam MultipartFile multipartFile) throws CandidateException, IOException {
+    public ResponseEntity<ResponseDTO> updateResource(@RequestPart ResourceDTO resource, @RequestPart MultipartFile multipartFile) throws CandidateException, IOException {
         return service.updateResource(resource,multipartFile);
     }
 
@@ -61,6 +61,28 @@ public class ResourceController {
     @PostMapping("/create_new_resource")
     public ResponseEntity<Object> createNewResource(@RequestBody ResourceDTO resource) {
         return service.createNewResource(resource);
+    }
+
+    @GetMapping("/get_last_department_no")
+    public String getLastDepartmentNo() {
+        return service.getLastDepartmentNo();
+    }
+
+    @GetMapping("/get_last_designation_no")
+    public String getLastDesignationNo() {
+        return service.getLastDesignationNo();
+    }
+    @GetMapping("/get_last_resource_type_no")
+    public String getLastResourceTypeNo() {
+        return service.getLastResourceTypeNo();
+    }
+    @GetMapping("/get_last_company_no")
+    public String getLastCompanyNo() {
+        return service.getLastCompanyNo();
+    }
+    @GetMapping("/get_last_role_no")
+    public String getLastRoleNo() {
+        return service.getLastRoleNo();
     }
 
 }
