@@ -12,4 +12,8 @@ import java.util.List;
 public interface CompanyRepo extends JpaRepository<Company,Long> {
     @Query("SELECT u FROM Company u ORDER BY u.companyNo DESC")
     List<Company> findOneByCompanyNoOrderByCompanyNoDesc();
+
+   // Company findByCompanyNo(String companyNo);
+
+   // Company findByCompanyId(long companyId);
 }

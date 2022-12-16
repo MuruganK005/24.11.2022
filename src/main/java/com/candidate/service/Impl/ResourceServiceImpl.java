@@ -12,6 +12,9 @@ import com.candidate.service.Service.ResourceService;
 import com.candidate.uploadAndDownload.FileUploadResponse;
 import com.candidate.uploadAndDownload.FileUploadUtil;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +57,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setAmbiguityIgnored(true);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD).setFieldMatchingEnabled(true).setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
         Resource resource1 = mapper.map(resourceDTO, Resource.class);
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         long size = multipartFile.getSize();
@@ -63,21 +67,29 @@ public class ResourceServiceImpl implements ResourceService {
         response.setFileName(fileName);
         response.setSize(size);
         response.setDownloadUri("/downloadFile/" + filecode);
-            Optional<Resource> resource2=resourceRepo.findByAadhaarNumber(resource1.getAadhaarNumber());
+        resource1.setResourceNo(getLastResourceNo());
+        Optional<Resource> resource2=resourceRepo.findByAadhaarNumber(resource1.getAadhaarNumber());
             if (resource2.isPresent()) {
                 throw new CandidateException(HttpStatus.BAD_REQUEST,"Aadhaar Number Already Exist");
             }else {
-                resource1.setResourceNo(getLastResourceNo());
-                resource1.getResourceType().setResourceTypeNo(getLastResourceTypeNo());
-                resource1.getCompany().setCompanyNo(getLastCompanyNo());
-                resource1.getRole().get(0).setRoleNo(getLastRoleNo());
-                resource1.getDepartment().setDepartmentNo(getLastDepartmentNo());
-                resource1.getDesignation().setDesignationNo(getLastDesignationNo());
+                resource1.setResourceType(resourceTypeRepo.getReferenceById(resourceDTO.getResourceTypeId()));
+                resource1.setCompany(companyRepo.getReferenceById(resourceDTO.getCompanyId()));
+                resource1.setRole(resourceDTO.getRole());
+                resource1.setDepartment(departmentRepo.getReferenceById(resourceDTO.getDepartmentId()));
+                resource1.setDesignation(designationRepo.getReferenceById(resourceDTO.getDestinationId()));
                 resourceRepo.save(resource1);
             }
             ResponseDTO responseDTO=new ResponseDTO();
             responseDTO.setFile(response);
-            responseDTO.setData(resource1);
+            String[] var=resource1.getRole().split(",");
+            ArrayList<Role> arrayList=new ArrayList<Role>();
+            for (String var1:var){
+               Optional<Role> role= roleRepo.findById(Long.parseLong(var1));
+               arrayList.add(role.get());
+            }
+            ResourceDTO resourceDTO1=mapper.map(resource1,ResourceDTO.class);
+            resourceDTO1.setRoles(arrayList);
+            responseDTO.setData(resourceDTO1);
             return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 

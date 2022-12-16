@@ -4,9 +4,8 @@ import com.candidate.entity.Department;
 import com.candidate.repo.DepartmentRepo;
 import com.candidate.service.Service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class DepartmentController {
     @GetMapping("/get_all_department")
     public List<Department> getAllDepartment(@RequestParam String search){
         return service.getAllDepartmentInAsc(search);
+    }
+
+    @PostMapping("/create_department")
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department){
+        return service.createDepartment(department);
     }
 
 }

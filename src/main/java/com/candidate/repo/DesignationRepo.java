@@ -16,4 +16,7 @@ public interface DesignationRepo extends JpaRepository<Designation,Long> {
     @Query("SELECT u FROM Designation u ORDER BY u.designationNo DESC")
     List<Designation> findOneByDesignationNoOrderByDesignationNoDesc();
 
+    //Designation findByDesignationNo(String designationNo);
+
+    //Designation findByDesignationId(long destinationId);
 }

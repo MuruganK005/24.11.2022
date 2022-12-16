@@ -15,4 +15,8 @@ public interface DepartmentRepo extends JpaRepository<Department,Long> {
 
     @Query("SELECT u FROM Department u ORDER BY u.departmentNo DESC")
     List<Department> findOneByDepartmentNoOrderByDepartmentNoDesc();
+
+   // Department findByDepartmentNo(String companyNo);
+
+    //Department findByDepartmentId(long departmentId);
 }

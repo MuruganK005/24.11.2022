@@ -1,6 +1,7 @@
 package com.candidate.dto;
 
 import com.candidate.entity.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -21,15 +22,18 @@ public class ResourceDTO implements Serializable {
     private String middleName;
     private String lastName;
     private String gender;
-    private Department department;
-    private Designation designation;
+    private long departmentId;
+    private long destinationId;
     private Long aadhaarNumber;
     private String panNumber;
     private String profilePicturePath;
+    private java.sql.Date dateOfBirth;
+    private java.sql.Date jointDate;
     private String reportingManger;
     private Boolean status=false;
-    private ResourceType resourceType;
+    private long resourceTypeId;
     private ContactDetails contactDetails;
-    private Company company;
-    private List<Role> role;
+    private long companyId;
+    private String role;
+    private List<Role> roles;
 }
